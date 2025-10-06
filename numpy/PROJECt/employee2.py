@@ -165,3 +165,32 @@ print("First, Middle, Last employees:\n", fancy_rows)
 # 6️⃣ Select Salary and Bonus columns only for employees older than 40
 cols_selected = data[data[:,1] > 40][:, [2,3]]
 print("Salary & Bonus for Age>40:\n", cols_selected)
+
+
+
+# =========================
+# 9️⃣ Stacking & Splitting
+# =========================
+
+# 1. Split vertically into two equal halves
+top_half, bottom_half = np.vsplit(data, 2)
+print("\nTop half shape:", top_half.shape)
+print("Bottom half shape:", bottom_half.shape)
+
+# 2. Stack DeptID 1 and DeptID 2 employees vertically
+dept1_2 = np.vstack([data[data[:,4]==1], data[data[:,4]==2]])
+print("\nDept 1 & 2 stacked shape:", dept1_2.shape)
+
+# 3. Split Salary column horizontally into 2 arrays
+salary_col = data[:,2].reshape(1,-1)
+salary1, salary2 = np.hsplit(salary_col, 2)
+print("\nSalary split shapes:", salary1.shape, salary2.shape)
+
+# 4. Horizontally combine first 3 columns with last 2 columns
+combined = np.hstack([data[:,:3], data[:,3:5]])
+print("\nHorizontally combined shape:", combined.shape)
+
+# 5. Vertically combine original array with 5 new employees
+new_employees = np.random.randint(20,120001,(5,7))
+data_extended = np.vstack([data, new_employees])
+print("\nData after adding 5 new employees:", data_extended.shape)
